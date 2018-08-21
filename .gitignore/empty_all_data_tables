@@ -2,11 +2,17 @@ function empty_all()
 {
   $query = $this->db->query("SHOW TABLES");
   $name = $this->db->database;
+
+  print_r($query->result_array()) ; die();
   foreach ($query->result_array() as $row)
   {
+  	if ($row <> "users") {
+  		
+  
     $table = $row['Tables_in_' . $name];
     $this->db->query("TRUNCATE " . $table);
     $this->db->query("ALTER TABLE ".$table." AUTO_INCREMENT = 1");
   }
+  	} 
   $this->output->set_output("Database emptyed");
 }
