@@ -1,0 +1,12 @@
+function empty_all()
+{
+  $query = $this->db->query("SHOW TABLES");
+  $name = $this->db->database;
+  foreach ($query->result_array() as $row)
+  {
+    $table = $row['Tables_in_' . $name];
+    $this->db->query("TRUNCATE " . $table);
+    $this->db->query("ALTER TABLE ".$table." AUTO_INCREMENT = 1");
+  }
+  $this->output->set_output("Database emptyed");
+}
